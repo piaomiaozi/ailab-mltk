@@ -1,5 +1,6 @@
 package test.mltk.openNPL;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -27,27 +28,38 @@ public class NamedEntityMultiFindTest {
 
 	@Test
 	public void testExecFindTrainer() {
-		String nameWordsPath = ".\\file\\name_find\\name_words";
-		String dataPath = ".\\file\\name_find\\seg\\train";
-		String modelPath = ".\\file\\name_find\\model\\multi_name_model.bin";
+		String nameWordsPath = "." + File.separator + "file" + File.separator
+				+ "name_find" + File.separator + "name_words";
+		String dataPath = "." + File.separator + "file" + File.separator
+				+ "name_find" + File.separator + "seg" + File.separator
+				+ "train";
+		String modelPath = "." + File.separator + "file" + File.separator
+				+ "name_find" + File.separator + "model" + File.separator
+				+ "multi_name_model.bin";
 
 		NamedEntityMultiFindTrainer trainer = new NamedEntityMultiFindTrainer(
 				nameWordsPath, dataPath, modelPath);
 		boolean succFlag = trainer.execNameFindTrainer();
-		
+
 		System.out.println(succFlag);
 	}
-	
+
 	@Test
 	public void testExecNameFindTester() {
-		String modelPath = ".\\file\\name_find\\model\\multi_name_model.bin";
-		String testFileDirPath = ".\\file\\name_find\\seg\\test";
-		
-		NameEntityFindTester tester = new NameEntityFindTester(modelPath, testFileDirPath);
+		String modelPath = "." + File.separator + "file" + File.separator
+				+ "name_find" + File.separator + "model" + File.separator
+				+ "multi_name_model.bin";
+		String testFileDirPath = "." + File.separator + "file" + File.separator
+				+ "name_find" + File.separator + "seg" + File.separator
+				+ "test";
+
+		NameEntityFindTester tester = new NameEntityFindTester(modelPath,
+				testFileDirPath);
 		Map<String, String> nameProbResMap = tester.execNameFindTester();
-		
+
 		for (Entry<String, String> nameProbRes : nameProbResMap.entrySet()) {
-			System.out.println(nameProbRes.getKey() + " -> " + nameProbRes.getValue());
+			System.out.println(nameProbRes.getKey() + " -> "
+					+ nameProbRes.getValue());
 		}
 	}
 }
